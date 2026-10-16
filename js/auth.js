@@ -1,10 +1,10 @@
 /* Login / register / logout with MongoDB API integration and offline fallback */
 const defaultTab = () => (session && session.role === 'admin' ? 'manage' : 'courses');
 
-// Backend API URL (empty string uses relative URL when served from the Express server)
-const API_BASE = window.location.port === '5000' || window.location.pathname.startsWith('/api') 
-  ? '' 
-  : 'http://localhost:5000';
+// Backend API URL (empty string uses relative URL when served in production / Vercel)
+const API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') && window.location.port !== '5000'
+  ? 'http://localhost:5000' 
+  : '';
 
 function renderAuth() {
   const err = ui.authError ? `<p class="error">${esc(ui.authError)}</p>` : '';
