@@ -13,7 +13,6 @@ function renderAuth() {
   if (ui.authMode === 'login') {
     return `<div class="login-wrap"><div class="login-card">
       <h2>Sign in</h2>
-      <p class="note">Admin demo login: <b>admin</b> / <b>admin123</b></p>
       ${err}${success}
       <input type="text" id="luser" placeholder="Username" autocomplete="username">
       <input type="password" id="lpass" placeholder="Password" autocomplete="current-password">
