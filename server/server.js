@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const fs = require('fs');
 const cors = require('cors');
 require('dotenv').config();
 
@@ -39,8 +40,12 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Serve static frontend files from project root when running standalone
-const clientDir = path.join(__dirname, '..');
+// Serve static frontend files (checks server/public first, then parent directory)
+const publicDir = path.join(__dirname, 'public');
+const clientDir = fs.existsSync(path.join(publicDir, 'index.html'))
+  ? publicDir
+  : path.join(__dirname, '..');
+
 app.use(express.static(clientDir));
 
 // Fallback for SPA routing to index.html
